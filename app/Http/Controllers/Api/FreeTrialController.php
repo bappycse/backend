@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -14,11 +13,6 @@ class FreeTrialController extends Controller
     public function __invoke(Request $request)
     {
         $files = $request->file('image');
-
-        $details = [
-            'title' => 'Mail from ItSolutionStuff.com',
-            'body' => 'This is for testing email using smtp'
-        ];
         $data['email'] = 'Free Trial';
         Mail::send('welcome', $data, function($message) use ($data, $files) {
             $message->to('ashadbappycse@gmail.com','ashadbappycse@gmail.com')->cc(['hasibulkabir06@gmail.com','hasibulkabir06@gmail.com'])

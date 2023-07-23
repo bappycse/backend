@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -21,18 +20,21 @@ class FreeTrialInfoController extends Controller
         $data['phone'] = $request->phone;
         $data['messages'] = $request->message;
         $data['country'] = $request->country;
-        $data['service_name'] = implode(", " ,$service_names);
-        $data['service_type'] = $request->serviceType;
+        $data['service_name'] = $request->serviceName;
+        if($request->serviceType != 'Free Trial') {
+            $data['service_name'] = implode(", " ,$service_names);
+        }
+        $data['service_type'] = $request->serviceName;
 
 
         if($service_type == 'Free Trial'){
             Mail::send('email.free', $data, function($message)use($data) {
-                $message->to('ashadbappycse@gmail.com','ashadbappycse@gmail.com')->cc(['info@photoeditscenter.com','info@photoeditscenter.com'])
+                $message->to('ashadbappycse@gmail.com','ashadbappycse@gmail.com')->cc(['hasibulkabir06@gmail.com','info@photoeditscenter.com'])
                     ->subject($data["service_type"]);
             });
         }else {
             Mail::send('email.commercial', $data, function($message)use($data) {
-                $message->to($data["email"], $data["email"])->cc(['photoeditscenter@gmail.com','photoeditscenter@gmail.com'])
+                $message->to($data["email"], $data["email"])->cc(['info@photoeditscenter.com','info@photoeditscenter.com'])
                     ->subject($data["service_type"]);
             });
         }
