@@ -12,6 +12,7 @@ class FreeTrialController extends Controller
      */
     public function __invoke(Request $request)
     {
+
         $files = $request->file('image');
         $data['name'] = $request->name;
         $data['email'] = $request->email;
@@ -21,14 +22,16 @@ class FreeTrialController extends Controller
         $data['serviceName'] = $request->serviceName;
         $data['serviceType'] = $request->serviceType;
 
-
         if($data['serviceType'] == 'Free Trial'){
             Mail::send('email.free', $data, function($message) use ($data, $files) {
                 $message->to('ashadbappycse@gmail.com','ashadbappycse@gmail.com')->cc(['hasibulkabir06@gmail.com','hasibulkabir06@gmail.com'])
                     ->subject($data["email"]);
-                foreach ($files as $file){
-                    $message->attach($file);
+                if($files) {
+                    foreach ($files as $file){
+                        $message->attach($file);
+                    }
                 }
+
             });
         }else {
             if($data['serviceName']){
@@ -38,8 +41,10 @@ class FreeTrialController extends Controller
             Mail::send('email.commercial', $data, function($message) use ($data, $files) {
                 $message->to('ashadbappycse@gmail.com','ashadbappycse@gmail.com')->cc(['hasibulkabir06@gmail.com','hasibulkabir06@gmail.com'])
                     ->subject($data["email"]);
-                foreach ($files as $file){
-                    $message->attach($file);
+                if($files) {
+                    foreach ($files as $file){
+                        $message->attach($file);
+                    }
                 }
             });
         }
