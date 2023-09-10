@@ -13,15 +13,36 @@ class FreeTrialController extends Controller
     public function __invoke(Request $request)
     {
         $files = $request->file('image');
-        $data['email'] = 'Free Trial';
-        Mail::send('welcome', $data, function($message) use ($data, $files) {
-            $message->to('ashadbappycse@gmail.com','ashadbappycse@gmail.com')->cc(['hasibulkabir06@gmail.com','hasibulkabir06@gmail.com'])
-                ->subject($data["email"]);
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['phone'] = $request->phone;
+        $data['country'] = $request->country;
+        $data['note'] = $request->note;
+        $data['serviceName'] = $request->serviceName;
+        $data['serviceType'] = $request->serviceType;
 
-            foreach ($files as $file){
-                $message->attach($file);
+
+        if($data['serviceType'] == 'Free Trial'){
+            Mail::send('email.free', $data, function($message) use ($data, $files) {
+                $message->to('ashadbappycse@gmail.com','ashadbappycse@gmail.com')->cc(['hasibulkabir06@gmail.com','hasibulkabir06@gmail.com'])
+                    ->subject($data["email"]);
+                foreach ($files as $file){
+                    $message->attach($file);
+                }
+            });
+        }else {
+            if($data['serviceName']){
+                $data['serviceName'] = implode(", " ,$data['serviceName']);
             }
-        });
+
+            Mail::send('email.commercial', $data, function($message) use ($data, $files) {
+                $message->to('ashadbappycse@gmail.com','ashadbappycse@gmail.com')->cc(['hasibulkabir06@gmail.com','hasibulkabir06@gmail.com'])
+                    ->subject($data["email"]);
+                foreach ($files as $file){
+                    $message->attach($file);
+                }
+            });
+        }
 
         return response()->json(["message" => "success", 'status' => 200]);
     }

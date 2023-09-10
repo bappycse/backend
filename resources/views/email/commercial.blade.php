@@ -10,8 +10,8 @@
 <body>
 <h3 style="margin: 0">Dear Admin,</h3>
 <p><b>Client Name</b> Mr. {{ $name }}, <b>Phone </b> no is {{$phone}}, <b>email</b> {{$email}} Country is {{$country}}.</p>
-<p><b>Client message:</b> {{$messages}}</p>
-<p><b>Service Name:</b> {{$service_name}}</p>
+<p><b>Client message:</b> {{$note}}</p>
+<p><b>Service Name:</b> {{$serviceName}}</p>
 <p><b>Please contact your valuable client as soon as possible.</b> </p>
 </body>
 </html>
