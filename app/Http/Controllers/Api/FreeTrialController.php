@@ -28,7 +28,7 @@ class FreeTrialController extends Controller
         if($data['serviceType'] == 'Free Trial'){
             Mail::send('email.free', $data, function($message) use ($data, $files) {
                 $message->to('ashadbappycse@gmail.com','ashadbappycse@gmail.com')->cc(['hasibulkabir06@gmail.com','hasibulkabir06@gmail.com'])
-                    ->subject($data["email"]);
+                    ->subject($data["serviceType"]);
                 if($files) {
                     foreach ($files as $file){
                         $message->attach($file);
@@ -44,7 +44,7 @@ class FreeTrialController extends Controller
 
             Mail::send('email.commercial', $data, function($message) use ($data, $files) {
                 $message->to('ashadbappycse@gmail.com','ashadbappycse@gmail.com')->cc(['hasibulkabir06@gmail.com','hasibulkabir06@gmail.com'])
-                    ->subject($data["email"]);
+                    ->subject($data["serviceType"]);
                 if($files) {
                     foreach ($files as $file){
                         $message->attach($file);
