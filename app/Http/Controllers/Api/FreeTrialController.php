@@ -12,7 +12,6 @@ class FreeTrialController extends Controller
      */
     public function __invoke(Request $request)
     {
-
         $files = $request->file('image');
         $data['name'] = $request->name;
         $data['email'] = $request->email;
@@ -21,6 +20,10 @@ class FreeTrialController extends Controller
         $data['note'] = $request->note;
         $data['serviceName'] = $request->serviceName;
         $data['serviceType'] = $request->serviceType;
+        $data['quantity'] = $request->quantity;
+        $data['deliveryTime'] = $request->deliveryTime;
+        $data['returnType'] = $request->returnType;
+        $data['fileLink'] = $request->fileLink;
 
         if($data['serviceType'] == 'Free Trial'){
             Mail::send('email.free', $data, function($message) use ($data, $files) {
