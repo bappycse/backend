@@ -38,7 +38,8 @@ class FreeTrialController extends Controller
             });
         }else {
             if($data['serviceName']){
-                $data['serviceName'] = implode(", " ,$data['serviceName']);
+                $data['serviceName'] = explode(' ,', $data['serviceName']);
+                $data['serviceName'] = implode(" ," ,$data['serviceName']);
             }
 
             Mail::send('email.commercial', $data, function($message) use ($data, $files) {
