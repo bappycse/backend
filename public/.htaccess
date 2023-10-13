@@ -4,9 +4,8 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteCond %{SERVER_PORT} 80
-    RewriteRule ^(.*)$ https://www.photoeditscenter.com/$1 [R=301,L,NE]
-    Header always set Content-Security-Policy "upgrade-insecure-requests;"
+    RewriteCond %{HTTPS} on
+    RewriteRule ^ http://photoeditscenter.com [L,R=301]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
